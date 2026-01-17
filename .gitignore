@@ -1,0 +1,17 @@
+a.out
+*.a
+*.o
+*.so
+*.dylib
+*.gch
+core
+core.*
+*~
+.DS_Store
+.vscode/
+.idea/
+build/
+gv_shell
+debug_pipe
+tmp/
+*.dSYM
