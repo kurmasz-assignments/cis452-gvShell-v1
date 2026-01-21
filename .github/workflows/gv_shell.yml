@@ -27,5 +27,4 @@ jobs:
 
       # Run RSpec tests
       - name: Run RSpec
-        run: |
-          bundle exec rspec
+        run: rspec
