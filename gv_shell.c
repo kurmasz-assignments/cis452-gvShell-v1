@@ -29,18 +29,20 @@ int main(int argc, char *argv[]) {
    size_t ipt_len = 0;
    int exit_status = 0;
 
+   int command_num = 1;
    while (1) {
+      
       ssize_t nread;
-      printf("gvShell> ");
-
-      // If a command-line argument is provided, use that instead of 
-      // reading from stdin. (This can make debugging easier -- especially
-      // if you use llvm on a Mac.)
       if (argc == 1) {
+         // Take commands from stdin
+         printf("gvShell> ");
          nread = getline(&input, &ipt_len, stdin);
       } else {
-         input = argv[1];
+         // Take commands from command line for debugging purposes
+         input = argv[command_num];
+         printf("gvShell p%d> %s\n", command_num , input);
          nread = strlen("input");
+         ++command_num;
       }
 
 
@@ -51,7 +53,9 @@ int main(int argc, char *argv[]) {
          printf("   %s\n", tokens[i]);
       }
     
-      if (argc > 1) {
+      // If we are taking commands from argv, and we have used them all, 
+      // then exit.
+      if (argc > 1 && command_num >= argc) {
          break;
       }
    } // end while

@@ -2,47 +2,79 @@
 
 For this project, you are going to add features to the simple Unix shell you wrote for Lab 2.
 
-You ~~may~~ should work in teams of two. (This is a large, challenging project. You will want someone to help you debug.)
+You are strongly encouraged to work in teams of two. This project is complex, and collaboration will help with design debugging.
 
 ## Objectives
 
 The objectives for this project are to:
- * Gain in-depth experience with process management
- * Gain in-depth experience using pipes 
- * Gain a deeper understanding of the rich, elegant workflows supported by unix shells
- * Gain experience identifying non-trivial corner cases and building tests for those cases
-
+ * Gain hands-on experience managing Unix processes, including foreground and background execution.
+ * Implement and test file redirection and inter-process communication using pipes
+ * Gain a deeper understanding of the rich, elegant workflows supported by Unix shells
+ * Design test cases that reveal subtle concurrency or I/O bugs in multi-process programs
 
  ## Specifications
 
  Write a Unix shell with the following features:
- 1. A basic interactive shell that repeatedly reads a command from the standard input and executes that command.
+ 1. A basic interactive shell that repeatedly reads a command from the standard input and executes that command
  2. A built-in `exit` command
  3. File redirection (e.g., `ls -l > my_output.txt`)
  4. Piping (e.g., `ls -l | wc -l`)
- 5. Processes can be run in the background by placing `&` at the end of a command.
- 6. The shell detects input and responds appropriately. (Don't let the shell crash, and don't fail silently.)
+ 5. Processes can be run in the background by placing `&` at the end of a command
+ 6. The shell reports the exit status of every process
+    * For synchronous processes (i.e., no `&`), report PID and exit status immediately after completion before prompting for a new command. Use a phrase like this: `"Process %d terminated with exit status %d\n"`
+    * Before prompting the user for a command, check whether any asynchronous (background) processes have completed. If so, report their pid and exit status. Provide the status of _all_ completed processes in a chain of piped commands. Use a phrase like this: `"Background process %d terminated with exit status %d\n"` 
+ 7. The shell detects invalid input and responds appropriately. (Don't let the shell crash, and don't fail silently.)
+
+In addition, you must prepare a thorough test plan. 
 
  ## Simplifying Assumptions
 
  1. You need not manage the path yourself. Use `execvp`, which will search the existing path.
  2. You may use the provided parser in `command_line_tokenizer.c`. This code will 
     * handle quotation marks
+    * handle whitespace (including extra whitespace)
     * separate the special characters as tokens, and
     * escape special characters (e.g., `echo "Hello, \"Tiny\", how are you?")
- 2. You need only handle a single file redirection that appears at the end of the command.  (In other words, things like `ls -l > f1 > f2` or 
-    `ls -l > f1 | wc -l` are not valid. )
- 3. The only valid location for an `&` is as the last token (e.g., you need not support an entire chain of parallel processes like `cmd1 & cmd2 & cmd3`)
+ 3. You need only handle a single file redirection and it must appear at the end of the command.  (In other words, you need not support commands that combine multiple redirections or place the redirection anywhere but after the final step.
+ 4. Input redirection is optional. 
+ 5. The only valid location for an `&` is as the last token (e.g., you need not support an entire chain of parallel processes like `cmd1 & cmd2 & cmd3`)
+ 6. You need not implement these common shell features (however, the first one is straightforward and may be helpful)
+    * File system navigation (e.g., `cd`)
+    * Environment variables (e.g., `$HOME`)
+    * Globs (`*`)
+    * Signal handling
 
 ## Approach
 
 Use your code from Lab 2 as a starting point.
 
-1. Replace your tokenizer with a tokenizer that can handle the special characters and quotation marks.
-2. Add support for file redirection. 
-3. Add support for a single pipe (e.g., `ls -l | wc -l`)
-4. Add support for running processes in the background.
-5. Check for invalid commands and respond accordingly (e.g., multiple `&` or `&` that doesn't appear at the end)
+1. Replace your tokenizer with a tokenizer that can handle the special characters and quotation marks
+    * I have provided such a tokenizer in `command_line_tokenizer.c`. You are not required to use it.
+2. Implement file redirection.
+3. Implement a single pipe (e.g., `ls -l | wc -l`)
+4. Implement background execution with `&`
+5. Implement a chain of pipes (e.g., `ls -l | grep Jan | wc -l`)
+6. Check for invalid commands and respond accordingly (e.g., multiple `&`, misplaced redirection, etc.)
+
+## Test Plan 
+
+Multi-process programs are susceptible to many subtle bugs. Brainstorming 
+all the possible corner cases is an important aspect of developing multi-process programs. 
+
+Prepare a written test plan. This need not be automated tests (although it can be). A text file of test cases is sufficient. 
+Each test case should list
+* A description of the test (e.g., "file redirection with no command")
+* An example input (e.g., `> foobar.txt`)
+* The expected output (e.g., "Shell responds with 'Invalid command' and re-prompts user")
+
+Please divide your test plan into two categories:
+
+1. Correctly formatted commands that exercise features of the shell (file redirection, piping, etc.)
+2. Incorrectly formatted commands and the expected response.
+
+Don't forget to check for
+* Zombie processes
+* memory leaks
 
 ## Hints
 
@@ -54,8 +86,7 @@ Use your code from Lab 2 as a starting point.
 ## Deliverables
 
 * Your working source code
-* A complete test plan. This need not be automated tests (although it can be). A text file of test cases is sufficient.
-  (Be sure to include tests that verify your program correctly handles invalid input.)
+* Your test plan and/or test code
 
 ## Submission
 
