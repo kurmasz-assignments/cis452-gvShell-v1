@@ -2,12 +2,12 @@
 
 For this project, you are going to add features to the simple Unix shell you wrote for Lab 2.
 
-You are strongly encouraged to work in teams of two. This project is complex, and collaboration will help with design debugging.
+You are strongly encouraged to work in teams of two. This project is complex, and collaboration will help with design and debugging.
 
 ## Objectives
 
 The objectives for this project are to:
- * Gain hands-on experience managing Unix processes, including foreground and background execution.
+ * Gain hands-on experience managing Unix processes, including foreground and background execution
  * Implement and test file redirection and inter-process communication using pipes
  * Gain a deeper understanding of the rich, elegant workflows supported by Unix shells
  * Design test cases that reveal subtle concurrency or I/O bugs in multi-process programs
@@ -15,7 +15,9 @@ The objectives for this project are to:
  ## Specifications
 
  Write a Unix shell with the following features:
- 1. A basic interactive shell that repeatedly reads a command from the standard input and executes that command
+ 1. A basic shell that has two modes of operation:
+    * If the process is passed no command line arguments, the shell should be interactive and repeatedly read a command from the standard input then execute it. The shell should terminate when either the user enters `exit` or when end-of-file (EOF) is reached on the standard input. 
+    * If there are command-line arguments, iterate through those arguments and treat each as a complete command. (If a command comprises multiple tokens, then enclose the command in quotes.) The shell should terminate after executing all the given commands.
  2. A built-in `exit` command
  3. File redirection (e.g., `ls -l > my_output.txt`)
  4. Piping (e.g., `ls -l | wc -l`)
