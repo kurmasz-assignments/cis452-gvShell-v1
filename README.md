@@ -26,12 +26,18 @@ The objectives for this project are to:
     * For synchronous processes (i.e., no `&`), report PID and exit status immediately after completion before prompting for a new command. Use a phrase like this: `"Process %d terminated with exit status %d\n"`
     * Before prompting the user for a command, check whether any asynchronous (background) processes have completed. If so, report their pid and exit status. Provide the status of _all_ completed processes in a chain of piped commands. Use a phrase like this: `"Background process %d terminated with exit status %d\n"` 
  7. The shell detects invalid input and responds appropriately. (Don't let the shell crash, and don't fail silently.)
+ 8. The shell’s exit value is determined by the execution of all commands processed during a session. The shell must exit with status 0
+    if and only if every command is valid and completes successfully. The shell must exit with a non-zero status if any of the following occur at any point:
+    * A command is invalid (e.g., improperly formatted)
+    * A command fails to execute (e.g., the executable is not found)
+    * A command executes but returns a non-zero exit status
+    (Automated tests rely on this behavior)
 
 In addition, you must prepare a thorough test plan. 
 
  ## Simplifying Assumptions
 
- 1. You need not manage the path yourself. Use `execvp`, which will search the existing path.
+ 1. You need not manage the path yourself. Use `execvp`, which will search the current path.
  2. You may use the provided parser in `command_line_tokenizer.c`. This code will 
     * handle quotation marks
     * handle whitespace (including extra whitespace)
@@ -63,8 +69,8 @@ Use your code from Lab 2 as a starting point.
 Multi-process programs are susceptible to many subtle bugs. Brainstorming 
 all the possible corner cases is an important aspect of developing multi-process programs. 
 
-Prepare a written test plan. This need not be automated tests (although it can be). A text file of test cases is sufficient. 
-Each test case should list
+Prepare a written test plan. This need not be automated tests (although it can be). A text file listing test cases is sufficient. 
+Each test case should contain
 * A description of the test (e.g., "file redirection with no command")
 * An example input (e.g., `> foobar.txt`)
 * The expected output (e.g., "Shell responds with 'Invalid command' and re-prompts user")
@@ -72,11 +78,11 @@ Each test case should list
 Please divide your test plan into two categories:
 
 1. Correctly formatted commands that exercise features of the shell (file redirection, piping, etc.)
-2. Incorrectly formatted commands and the expected response.
+2. Incorrectly formatted commands and the expected response
 
 Don't forget to check for
 * Zombie processes
-* memory leaks
+* Memory leaks
 
 ## Hints
 
@@ -92,8 +98,9 @@ Don't forget to check for
 
 ## Submission
 
-* I must be able to build your shell on EOS using the `make` command.
+* I must be able to build your shell on EOS using the `make` command
 * Make sure your names appear in all documents that you edit (source code, test plans, etc.)
+* List any extra features you add (e.g., the ability for a command to contain multiple background processes).
 
 To submit your project, simply commit and push your code with the phrase `GRADE ME` somewhere in the commit message.
 
