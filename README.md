@@ -31,9 +31,8 @@ The objectives for this project are to:
     * A command is invalid (e.g., improperly formatted)
     * A command fails to execute (e.g., the executable is not found)
     * A command executes but returns a non-zero exit status
-    (Automated tests rely on this behavior)
-
-In addition, you must prepare a thorough test plan. 
+    
+Pay special attention to the last requirement. Automated tests rely on this behavior.
 
  ## Simplifying Assumptions
 

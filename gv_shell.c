@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
    int exit_status = 0;
 
    int command_num = 1;
-   while (1) {
+   while (argc == 1 || (argc > 1 && command_num < argc)) {
       
       ssize_t nread;
       if (argc == 1) {
@@ -51,12 +51,6 @@ int main(int argc, char *argv[]) {
 
       for (int i = 0; i < num_tokens; ++i) {
          printf("   %s\n", tokens[i]);
-      }
-    
-      // If we are taking commands from argv, and we have used them all, 
-      // then exit.
-      if (argc > 1 && command_num >= argc) {
-         break;
       }
    } // end while
 
