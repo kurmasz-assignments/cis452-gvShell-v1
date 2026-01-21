@@ -19,10 +19,8 @@ jobs:
           ruby-version: "3.4"   # change to your Ruby version
 
       # Install dependencies (bundler and gems)
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle install
+      - name: Install RSpec
+        run: gem install rspec --no-document
 
       - name: Build with Make
         run: make
