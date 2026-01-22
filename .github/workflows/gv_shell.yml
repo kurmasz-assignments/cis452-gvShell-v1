@@ -17,9 +17,7 @@ jobs:
         run:  |
           printf "%s\n" "${{ secrets.DEPLOY_KEY }}" > deploy_key_zk
           chmod 600 ./deploy_key_zk
-          cat ./deploy_key_zk
-          ls -l deploy_key_zk
-          export GIT_SSH_COMMAND="ssh -i ./deploy_key_zk -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
+          export GIT_SSH_COMMAND="ssh -i ../deploy_key_zk -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
           mkdir -p autograde_data_zk
           git clone --filter=blob:none --no-checkout git@github.com:kurmasz-assignments/ag_test_data.git autograde_data_zk
