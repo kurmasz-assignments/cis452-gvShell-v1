@@ -14,7 +14,8 @@ jobs:
 
       # Check out the test data
       - name: Checkout test_data
-        env: GIT_SSH_COMMAND="ssh -i ${{ secrets.DEPLOY_KEY }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" 
+        env: 
+          GIT_SSH_COMMAND: ssh -i ${{ secrets.DEPLOY_KEY }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no
         run:  |
           mkdir -p autograde_data_zk
           git clone --filter=blob:none --no-checkout git@github.com:kurmasz-assignments/ag_test_data.git autograde_data_zk
