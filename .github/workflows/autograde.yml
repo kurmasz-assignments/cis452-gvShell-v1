@@ -1,0 +1,29 @@
+name: Request Autograde
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+
+jobs:
+  request-grading:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dispatch autograder
+        env:
+          AUTOGRADER_REPO: kurmasz-assignments/ag-cis452-gvShell-v1
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/$AUTOGRADER_REPO/dispatches \
+            -d '{
+              "event_type": "autograde",
+              "client_payload": {
+                "repository": "'"${GITHUB_REPOSITORY}"'",
+                "ref": "'"${GITHUB_SHA}"'"
+              }
+            }'
