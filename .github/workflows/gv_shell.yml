@@ -15,8 +15,9 @@ jobs:
       # Check out the test data
       - name: Checkout test_data
         run:  |
-          echo "${{ secrets.DEPLOY_KEY }}"  | tr -d '\r' > ./deploy_key_zk
+          printf "%s\n" "${{ secrets.DEPLOY_KEY }}" > deploy_key_zk
           chmod 600 ./deploy_key_zk
+          cat ./deploy_key_zk
           export GIT_SSH_COMMAND="ssh -i ./deploy_key_zk -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 
           mkdir -p autograde_data_zk
