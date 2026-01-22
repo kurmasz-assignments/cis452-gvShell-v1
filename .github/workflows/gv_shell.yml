@@ -51,5 +51,8 @@ jobs:
           gcc autograde_data_zk/debug_pipe.c -o debug_pipe_zk
 
       # Run RSpec tests
-      - name: Run RSpec
+      - name: Run student's tests
         run: rspec
+
+      - name: Run instructor tests
+        run: rspec autograde_data_zk/spec
