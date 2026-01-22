@@ -26,6 +26,8 @@ jobs:
           git sparse-checkout init --cone
           git sparse-checkout set CIS452/gvShell_v1
           git checkout main
+          mv CIS452/gvShell_v1/* .
+          rm -rf CIS452
 
       # Take a peek
       - name: Take a peek
@@ -43,6 +45,10 @@ jobs:
 
       - name: Build with Make
         run: make
+
+      - name: Build helper
+        run:  |
+          gcc autograde_data_zk/debug_pipe.c -o debug_pipe_zk
 
       # Run RSpec tests
       - name: Run RSpec

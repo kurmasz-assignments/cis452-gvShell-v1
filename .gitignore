@@ -13,5 +13,6 @@ core.*
 build/
 gv_shell
 debug_pipe
+debug_pipe_zk
 tmp/
 *.dSYM
