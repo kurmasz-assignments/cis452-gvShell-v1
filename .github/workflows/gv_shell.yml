@@ -1,4 +1,4 @@
-name: Manual Test Runner
+name: Autograder
 
 # Only runs when manually triggered
 on:
@@ -11,6 +11,21 @@ jobs:
       # Check out the repository
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      # Check out the test data
+      - name: Checkout test_data
+        env: GIT_SSH_COMMAND="ssh -i ${{ secrets.DEPLOY_KEY }} -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" 
+        run:  |
+          mkdir -p autograde_data_zk
+          git clone --filter=blob:none --no-checkout git@github.com:kurmasz-assignments/ag_test_data.git autograde_data_zk
+          cd autograde_data_zk
+          git sparse-checkout init --cone
+          git sparse-checkout set CIS452/gvShell_v1
+          git checkout main
+
+      # Take a peek
+      - name: Take a peek
+        run: find .
 
       # Set up Ruby
       - name: Set up Ruby
