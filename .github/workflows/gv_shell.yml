@@ -45,7 +45,7 @@ jobs:
               console.log(`Now: ${now}`);
               console.log(`Minutes since last run: ${minutesSinceLastRun}`);
 
-              const requiredDelay = 60
+              const requiredDelay = 60;
               if (minutesSinceLastRun < requiredDelay) {
                 const minutesRemaining = Math.ceil((requiredDelay - minutesSinceLastRun));
                 core.setFailed(`Please wait ${minutesRemaining} more minutes before running again.`);
