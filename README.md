@@ -83,6 +83,39 @@ Don't forget to check for
 * Zombie processes
 * Memory leaks
 
+## Automated Tests
+
+Your starter code comes with a small set of automated tests in the `spec` directory. 
+* The tests are in `spec/gv_shell_spec.rb`.  Feel free to add more.
+* To run the tests, run `rspec` from the project root. 
+  * To run the tests, you will need Ruby installed on your machine, 
+  * And you'll have to install the `rspec` gem (`gem install rspec`)
+  
+I have set up a GitHub Action that will run my tests on your code. My tests use the same infrastructure 
+as the sample tests in your `spec` directory.
+* You need to launch these tests by hand using the "Actions" tab on this repo's web page.
+* You may only run the tests once per hour.
+
+The output of my tests is very vague. That is intentional. The idea is that if your code doesn't pass my 
+tests, then you are missing a test case. When my tests fail, you should
+1. Write a new test case that fails (i.e., write a test case that demonstrates a bug in your code), then 
+2. fix your code so it passes that test case. 
+
+If you have trouble finding a failing test case, let me know: I'm happy to help. The vague feedback 
+and rate limit are designed to encourage you to think critically about test coverage and edge cases, 
+rather than "spamming" the autograder with random changes until tests pass.
+
+To be clear: You are welcome to add automated tests to the `spec` directory. These can represent your 
+required test plan. However, you are not required to write automated tests. The written test plan 
+described above is sufficient.
+
+You are expected to continue revising your project until it passes the automated tests.
+
+If you decide to add bonus features, let me know. I may need to adjust the automated tests accordingly 
+for you.
+
+**Important:** Do not modify any files in the `.github` directory or attempt to access my test code. Doing so is an academic honesty violation. 
+
 ## Hints
 
 * Implement and test one feature at a time.
