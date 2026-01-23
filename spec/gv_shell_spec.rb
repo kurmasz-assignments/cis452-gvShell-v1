@@ -8,7 +8,7 @@
 ##################################################################################################
 require_relative 'spec_helper'
 
-describe 'GVSpec', :student do
+describe 'GVSpec', author: :student do
   it 'runs a single one-token command' do
     expected = `ls`.lines.map(&:chomp)
     result = run_gv_shell('ls')
