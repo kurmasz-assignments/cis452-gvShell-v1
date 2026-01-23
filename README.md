@@ -101,20 +101,20 @@ tests, then you are missing a test case. When my tests fail, you should
 1. Write a new test case that fails (i.e., write a test case that demonstrates a bug in your code), then 
 2. fix your code so it passes that test case. 
 
-If you have trouble finding a failing test case, let me know: I'm happy to help. The vague feedback 
+Other testing instructions:
+* I need to manually enable the instructor tests. They won't work until I do (i.e., right after you create the repo).
+* The autograder runs in a Linux container. Make sure your shell compiles and runs on Linux (e.g., EOS).
+* You are expected to continue revising your project until it passes the automated tests.
+* If you have trouble finding a failing test case, let me know: I'm happy to help. The vague feedback 
 and rate limit are designed to encourage you to think critically about test coverage and edge cases, 
 rather than "spamming" the autograder with random changes until tests pass.
+* If you decide to add bonus features, let me know. I may need to adjust the automated tests accordingly 
+for you.
+* **Important:** Do not modify any files in the `.github` directory or attempt to access my test code. Doing so is an academic honesty violation. 
 
 To be clear: You are welcome to add automated tests to the `spec` directory. These can represent your 
 required test plan. However, you are not required to write automated tests. The written test plan 
 described above is sufficient.
-
-You are expected to continue revising your project until it passes the automated tests.
-
-If you decide to add bonus features, let me know. I may need to adjust the automated tests accordingly 
-for you.
-
-**Important:** Do not modify any files in the `.github` directory or attempt to access my test code. Doing so is an academic honesty violation. 
 
 ## Hints
 

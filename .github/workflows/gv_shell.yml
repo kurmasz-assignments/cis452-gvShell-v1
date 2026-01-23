@@ -4,6 +4,10 @@ name: Autograder
 on:
   workflow_dispatch:
 
+permissions:
+  actions: read
+  contents: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -32,14 +36,18 @@ jobs:
               status: 'completed',
               per_page: 1
             });
-      
+
             if (runs.data.workflow_runs.length > 0) {
               const lastRun = new Date(runs.data.workflow_runs[0].created_at);
               const now = new Date();
-              const hoursSinceLastRun = (now - lastRun) / (1000 * 60 * 60);
-        
-              if (hoursSinceLastRun < 1) {
-                const minutesRemaining = Math.ceil((1 - hoursSinceLastRun) * 60);
+              const minutesSinceLastRun = (now - lastRun) / (1000 * 60);
+              console.log(`Last run: ${lastRun}`);
+              console.log(`Now: ${now}`);
+              console.log(`Minutes since last run: ${minutesSinceLastRun}`);
+
+              const requiredDelay = 60
+              if (minutesSinceLastRun < requiredDelay) {
+                const minutesRemaining = Math.ceil((requiredDelay - minutesSinceLastRun));
                 core.setFailed(`Please wait ${minutesRemaining} more minutes before running again.`);
               }
             }

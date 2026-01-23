@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/wait.h>
+#include <sys/resource.h>
 #include <unistd.h>
 
 // Helpful when using pipes
